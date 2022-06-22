@@ -7,16 +7,14 @@ package tubes.pbo;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import com.sun.istack.internal.logging.Logger;
-import static java.lang.ProcessBuilder.Redirect.from;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import static java.sql.Timestamp.from;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -312,7 +310,13 @@ public class BookingForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BookingForm().setVisible(true);
+                try {
+                    new BookingForm().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(BookingForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(BookingForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
