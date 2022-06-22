@@ -14,7 +14,7 @@ import static java.sql.Timestamp.from;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *tes asu ga masuk2 bangsat push nya
  * @author Lenovo
  */
 public class LoginForm extends javax.swing.JFrame {
