@@ -75,11 +75,9 @@
                           </Group>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="rePassword" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="usernameNew" max="32767" attributes="0"/>
-                                  <Component id="daftarsekarangButton" max="32767" attributes="0"/>
-                                  <Component id="passwordNew" alignment="1" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="usernameNew" max="32767" attributes="0"/>
+                              <Component id="daftarsekarangButton" max="32767" attributes="0"/>
+                              <Component id="passwordNew" alignment="1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
