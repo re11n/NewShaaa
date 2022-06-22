@@ -136,7 +136,7 @@ public class RegisterForm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+//tess
     private void daftarsekarangButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daftarsekarangButtonActionPerformed
         try {
             // TODO add your handling code here:
