@@ -49,10 +49,7 @@ public class LihatAllForm extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "No", "Asal", "Tujuan", "Tanggal", "Status"
@@ -124,7 +121,7 @@ public class LihatAllForm extends javax.swing.JFrame {
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery(sql);
             while(rs.next()){
-                String No = String.valueOf(rs.getInt("busno"));
+                String No = String.valueOf(rs.getInt("NoBus"));
                 String Asal = rs.getString("asal");
                 String Tujuan = rs.getString("tujuan");
                 String Tanggal = String.valueOf(rs.getDate("tanggal"));
