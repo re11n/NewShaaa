@@ -37,6 +37,7 @@ public class Mainmenu extends javax.swing.JFrame {
         PembayaranButton = new javax.swing.JButton();
         StatusButton = new javax.swing.JButton();
         LabelTitle = new javax.swing.JLabel();
+        lihatSemuaBus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +57,13 @@ public class Mainmenu extends javax.swing.JFrame {
 
         LabelTitle.setText("Silahkan Klik Tombol Dibawah ini");
 
+        lihatSemuaBus.setText("Lihat Semua Bus");
+        lihatSemuaBus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lihatSemuaBusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -74,7 +82,8 @@ public class Mainmenu extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(Bookingbutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(PembayaranButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(StatusButton, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(StatusButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lihatSemuaBus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -90,7 +99,9 @@ public class Mainmenu extends javax.swing.JFrame {
                 .addComponent(PembayaranButton)
                 .addGap(18, 18, 18)
                 .addComponent(StatusButton)
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lihatSemuaBus)
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -123,6 +134,15 @@ public class Mainmenu extends javax.swing.JFrame {
             
         
     }//GEN-LAST:event_BookingbuttonActionPerformed
+
+    private void lihatSemuaBusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lihatSemuaBusActionPerformed
+        // TODO add your handling code here:
+            LihatAllForm b;
+            b = new LihatAllForm();
+            b.setVisible(true);
+            setVisible(false);
+        
+    }//GEN-LAST:event_lihatSemuaBusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,5 +186,6 @@ public class Mainmenu extends javax.swing.JFrame {
     private javax.swing.JButton StatusButton;
     private javax.swing.JLabel TitleSelamatDatang;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton lihatSemuaBus;
     // End of variables declaration//GEN-END:variables
 }

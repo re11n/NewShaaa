@@ -54,7 +54,8 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="Bookingbutton" max="32767" attributes="0"/>
                               <Component id="PembayaranButton" max="32767" attributes="0"/>
-                              <Component id="StatusButton" min="-2" pref="159" max="-2" attributes="0"/>
+                              <Component id="StatusButton" max="32767" attributes="0"/>
+                              <Component id="lihatSemuaBus" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -75,7 +76,9 @@
                   <Component id="PembayaranButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="StatusButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="162" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lihatSemuaBus" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="117" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -111,6 +114,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Silahkan Klik Tombol Dibawah ini"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="lihatSemuaBus">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Lihat Semua Bus"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lihatSemuaBusActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

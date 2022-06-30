@@ -30,11 +30,6 @@ public class BookingForm extends javax.swing.JFrame {
     public BookingForm() throws SQLException, ClassNotFoundException {
         initComponents();
     }
-    
-
-
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -190,7 +185,7 @@ public class BookingForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "No.", "Asal", "Tujuan", "Tanggal", "Status"
+                "NoBus", "Asal", "Tujuan", "Tanggal", "Status"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -232,36 +227,25 @@ public class BookingForm extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");
                Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
             SimpleDateFormat Dt = new SimpleDateFormat("yyyy-MM-dd");
-            
             String date = Dt.format(jDateChooser1.getDate());
-            String asal = String.format(asalBus.getText());
-            String tujuan = String.format(tujuanBus.getText());
-            String  sql = "SELECT BusNo, Asal, Tujuan, tanggal from busdatabase where tanggal=? and tujuan=? or tanggal=? and asal=? ";
+            String  sql = "SELECT NoBus, Asal, Tujuan, tanggal, status from busdatabase where tanggal=?";
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
-            pst.setString(1, asal);
-            pst.setString(2, tujuan);
-            pst.setString(3, date);
+            pst.setString(1, date);
             ResultSet rs = pst.executeQuery();
             
-            ResultSetMetaData rsd = rs.getMetaData();
-            int c;
-            
-            c = rsd.getColumnCount();
-            
-            DefaultTableModel d = (DefaultTableModel)jTable1.getModel();
-            d.setRowCount(0);
             
             while(rs.next()){
                 
-                Vector v2 = new Vector();
+                    String No = String.valueOf(rs.getInt("NoBus"));
+                    String Asal = rs.getString("asal");
+                    String Tujuan = rs.getString("tujuan");
+                    String Tanggal = String.valueOf(rs.getDate("tanggal"));
+                    String Status = rs.getString("status");
+                    
+                    String tbData[] = {No,Asal,Tujuan,Tanggal,Status};
+                    DefaultTableModel  tblModel = (DefaultTableModel)jTable1.getModel(); 
+                    tblModel.addRow(tbData);
                 
-                for(int i=1; i<c; i++){
-                    v2.add(rs.getString("NoBus"));
-                    v2.add(rs.getString("Asal"));
-                    v2.add(rs.getString("Tujuan"));
-                    v2.add(rs.getString("Tanggal"));
-                    v2.add(rs.getString("Status"));
-                }
             }
                 }
         catch(ClassNotFoundException ex){

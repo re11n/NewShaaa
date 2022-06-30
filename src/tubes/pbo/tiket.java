@@ -1,6 +1,6 @@
 package tubes.pbo;
 public class tiket {
-     private int id_tiket;
+    private int id_tiket;
     private int no_tiket;
     
     public tiket(int id_tiket, int no_tiket)
@@ -28,4 +28,5 @@ public class tiket {
     {
         return no_tiket;
     }
+    
 }

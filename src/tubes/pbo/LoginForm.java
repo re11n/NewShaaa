@@ -142,7 +142,6 @@ public class LoginForm extends javax.swing.JFrame {
                pst.setString(2, password.getText());
                ResultSet rs = pst.executeQuery();
                if(rs.next()){
-                   JOptionPane.showMessageDialog(null, "Login berhasil");
                    Mainmenu menu = new Mainmenu();
                    menu.setVisible(true);
                    setVisible(false);

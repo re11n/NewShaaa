@@ -151,7 +151,7 @@ public class RegisterForm extends javax.swing.JFrame {
             
             pst.setString(1, username);
             pst.setString(2, password);
-            pst.setString(1, repass);
+            pst.setString(2, repass);
             
             if(username.equals("")){
                 JOptionPane.showMessageDialog(null, "Username Tidak Boleh kosong");

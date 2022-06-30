@@ -40,4 +40,6 @@ public class member {
     {
         return umur_member;
     }
+    
+    //public void 
 }
