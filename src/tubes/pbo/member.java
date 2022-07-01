@@ -1,45 +1,44 @@
 package tubes.pbo;
+
 public class member {
-     private int id_member;
-    private String nama_member;
-    private int umur_member;
+    private String username;
+    private String password;
     
-    public member(int id_member, String nama_member, int umur_member)
+    public member(){
+        
+    }
+    public member(String username, String password)
     {
-        setId_member(id_member);
-        setNama_member(nama_member);
-        setUmur_member(umur_member);
+        setUsername(username);
+        setPassword(password);
     }
     
-    public void setId_member(int id_member)
+    public void setUsername(String username)
     {
-        this.id_member = id_member;
+        this.username = username;
     }
     
-    public int getId_member()
+    public String getUsername()
     {
-        return id_member;
+        return username;
     }
     
-    public void setNama_member(String nama_member)
+    public void setPassword(String password)
     {
-        this.nama_member = nama_member;
+        this.password = password;
     }
     
-    public String getNama_member()
+    public String getPassword()
     {
-        return nama_member;
+        return password;
     }
     
-    public void setUmur_member(int umur_member)
-    {
-        this.umur_member = umur_member;
+    public void tampil_login(){
+        new LoginForm().setVisible(true);
+        
     }
     
-    public int getUmur_member()
-    {
-        return umur_member;
+    public void user(){
+        
     }
-    
-    //public void 
 }

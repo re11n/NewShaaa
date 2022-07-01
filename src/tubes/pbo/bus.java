@@ -1,19 +1,14 @@
 package tubes.pbo;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import java.text.SimpleDateFormat;
+
 
 public class bus {
     private int id_bus;
     private int no_bus;
+    
+    public bus(){
+        
+    }
     
     public bus(int id_bus, int no_bus)
     {
@@ -39,8 +34,5 @@ public class bus {
     public int getNo_bus()
     {
         return no_bus;
-    }
-    
-    public void tampil_bus(){
     }
 }

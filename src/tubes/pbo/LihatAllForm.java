@@ -25,6 +25,30 @@ public class LihatAllForm extends javax.swing.JFrame {
      */
     public LihatAllForm() {
         initComponents();
+        try {
+            // TODO add your handling code here:
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+            String sql = "select * from busdatabase";
+            PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
+            DefaultTableModel  tblModel = (DefaultTableModel)jTable1.getModel();
+            tblModel.setRowCount(0);
+            while(rs.next()){
+                String No = String.valueOf(rs.getInt("NoBus"));
+                String Asal = rs.getString("asal");
+                String Tujuan = rs.getString("tujuan");
+                String Tanggal = String.valueOf(rs.getDate("tanggal"));
+                String Status = rs.getString("status");
+                String tbData[] = {No,Asal,Tujuan,Tanggal,Status};
+                
+                tblModel.addRow(tbData);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(LihatAllForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(LihatAllForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -57,7 +81,7 @@ public class LihatAllForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Tampilkan Data");
+        jButton1.setText("Kembali");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -113,30 +137,11 @@ public class LihatAllForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            // TODO add your handling code here:
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
-            String sql = "select * from busdatabase";
-            PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery(sql);
-            while(rs.next()){
-                String No = String.valueOf(rs.getInt("NoBus"));
-                String Asal = rs.getString("asal");
-                String Tujuan = rs.getString("tujuan");
-                String Tanggal = String.valueOf(rs.getDate("tanggal"));
-                String Status = rs.getString("status");
-                
-                String tbData[] = {No,Asal,Tujuan,Tanggal,Status};
-                DefaultTableModel  tblModel = (DefaultTableModel)jTable1.getModel(); 
-                tblModel.addRow(tbData);
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LihatAllForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(LihatAllForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-               
+
+        Mainmenu menu = new Mainmenu();
+        menu.setVisible(true);
+        setVisible(false);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -113,6 +113,12 @@ public class BookingForm extends javax.swing.JFrame {
 
         jLabel3.setText("Tujuan bus");
 
+        CustomerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CustomerNameActionPerformed(evt);
+            }
+        });
+
         jLabel5.setText("Nomor Telepon");
 
         buttonTambah.setText("Tambah");
@@ -225,14 +231,15 @@ public class BookingForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             Class.forName("com.mysql.jdbc.Driver");
-               Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+            Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
             SimpleDateFormat Dt = new SimpleDateFormat("yyyy-MM-dd");
             String date = Dt.format(jDateChooser1.getDate());
             String  sql = "SELECT NoBus, Asal, Tujuan, tanggal, status from busdatabase where tanggal=?";
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
             pst.setString(1, date);
             ResultSet rs = pst.executeQuery();
-            
+            DefaultTableModel  tblModel = (DefaultTableModel)jTable1.getModel();
+            tblModel.setRowCount(0);
             
             while(rs.next()){
                 
@@ -241,11 +248,9 @@ public class BookingForm extends javax.swing.JFrame {
                     String Tujuan = rs.getString("tujuan");
                     String Tanggal = String.valueOf(rs.getDate("tanggal"));
                     String Status = rs.getString("status");
-                    
                     String tbData[] = {No,Asal,Tujuan,Tanggal,Status};
-                    DefaultTableModel  tblModel = (DefaultTableModel)jTable1.getModel(); 
+                    
                     tblModel.addRow(tbData);
-                
             }
                 }
         catch(ClassNotFoundException ex){
@@ -263,6 +268,11 @@ public class BookingForm extends javax.swing.JFrame {
                    menu.setVisible(true);
                    setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void CustomerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerNameActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_CustomerNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,4 +336,6 @@ public class BookingForm extends javax.swing.JFrame {
     private javax.swing.JLabel tanggalkeberangkatan;
     private javax.swing.JTextField tujuanBus;
     // End of variables declaration//GEN-END:variables
+
+
 }

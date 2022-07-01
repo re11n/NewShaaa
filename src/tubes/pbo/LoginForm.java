@@ -10,11 +10,14 @@ import com.mysql.jdbc.PreparedStatement;
 import static java.lang.ProcessBuilder.Redirect.from;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import static java.sql.Timestamp.from;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
- *tes asu ga masuk2 bangsat push nya
  * @author Lenovo
  */
 public class LoginForm extends javax.swing.JFrame {
@@ -151,12 +154,16 @@ public class LoginForm extends javax.swing.JFrame {
                     username.setText("");
                     password.setText("");
                }
+               
                con.close();
                
            }
            catch(Exception e){
                JOptionPane.showMessageDialog(null,e);
            }
+           
+           
+      
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void buttonDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDaftarActionPerformed
@@ -214,4 +221,6 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
+
+
 }
