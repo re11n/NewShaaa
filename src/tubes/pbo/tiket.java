@@ -85,7 +85,7 @@ public class tiket {
         PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
         pst.setString(1, username);
         ResultSet rs = pst.executeQuery();
-        String[] tbData = new String[999];
+        String[] tbData = new String[50];
         int i = 0;
         while(rs.next()){
             String tiket = rs.getString("id_tiket");

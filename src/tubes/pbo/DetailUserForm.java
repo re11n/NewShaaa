@@ -5,6 +5,15 @@
  */
 package tubes.pbo;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ryans
@@ -16,6 +25,45 @@ public class DetailUserForm extends javax.swing.JFrame {
      */
     public DetailUserForm() {
         initComponents();
+        
+        String userr;
+        try {
+            userr = new admin().selected_user();
+            String[] data = new admin().detail_user(userr);
+            
+            idLabel.setText(data[0]);
+            namaLabel.setText(data[1]);
+            usernameLabel.setText(data[2]);
+            notelpLabel.setText(data[3]);
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+            String  sql = "SELECT id_tiket, nama, no_telp,bus_dari,bus_ke , premium, case when sudah_bayar like 'no' then 'Belum Bayar' else 'Sudah Bayar' end as `Status Pembayaran` from tiketdatabase where user = ?";
+            PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
+            pst.setString(1, userr);
+            ResultSet rs = pst.executeQuery();
+            DefaultTableModel  tblModel = (DefaultTableModel)jTable1.getModel();
+            tblModel.setRowCount(0);
+            while(rs.next()){
+                String id_tiket = rs.getString("id_tiket");
+                String nama = rs.getString("nama");
+                String no_telp = rs.getString("no_telp");
+                String premium = rs.getString("premium");
+                String bus_dari = rs.getString("bus_dari");
+                String bus_ke = rs.getString("bus_ke");
+                String status_pembayaran = rs.getString("Status Pembayaran");
+                String tbData[] = {id_tiket,nama,no_telp,bus_dari, bus_ke, premium ,status_pembayaran};
+
+                tblModel.addRow(tbData);}
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DetailUserForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DetailUserForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
     }
 
     /**
@@ -36,6 +84,11 @@ public class DetailUserForm extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        idLabel = new javax.swing.JLabel();
+        namaLabel = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        notelpLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,6 +128,16 @@ public class DetailUserForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        idLabel.setText("jLabel7");
+
+        namaLabel.setText("jLabel8");
+
+        usernameLabel.setText("jLabel9");
+
+        jLabel10.setText("*******");
+
+        notelpLabel.setText("jLabel11");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,13 +150,24 @@ public class DetailUserForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel6)))
+                            .addComponent(jLabel6)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(notelpLabel))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(94, 94, 94)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(idLabel)
+                                        .addComponent(namaLabel)
+                                        .addComponent(usernameLabel)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(371, 371, 371)
                         .addComponent(TitleSelamatDatang)))
@@ -105,15 +179,25 @@ public class DetailUserForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(TitleSelamatDatang)
                 .addGap(43, 43, 43)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(idLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(namaLabel))
                 .addGap(11, 11, 11)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(usernameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(notelpLabel))
                 .addGap(39, 39, 39)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -161,7 +245,9 @@ public class DetailUserForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TitleSelamatDatang;
+    private javax.swing.JLabel idLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -169,5 +255,8 @@ public class DetailUserForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel namaLabel;
+    private javax.swing.JLabel notelpLabel;
+    private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
 }

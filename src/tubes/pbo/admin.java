@@ -43,4 +43,40 @@ public class admin extends user{
                    return true;
                }
     }
+    
+    public String selected_user() throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+        String  sql = "SELECT * from selected";
+        PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+        
+        rs.next();
+        String user = rs.getString("activeuser");
+        con.close();
+        return user;
+    }
+    
+    public String[] detail_user(String username) throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+        String  sql = "SELECT * from logindatabase where username = ?";
+        PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
+        pst.setString(1, username);
+        ResultSet rs = pst.executeQuery();
+        String[] tbData = new String[50];
+        while(rs.next()){
+            String id = rs.getString("id");
+            String nama = rs.getString("nama");
+            String username1 = rs.getString("username");
+            String notelp = rs.getString("no_telp");
+            tbData[0] = id;
+            tbData[1] = nama;
+            tbData[2] = username1;
+            tbData[3] = notelp;
+        }
+        
+        return tbData;
+    }
+    
 }
