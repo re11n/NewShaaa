@@ -65,40 +65,6 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
         jLabel36.addMouseListener(this);
         jLabel37.addMouseListener(this);
         
-        try {
-            String usercurrent = new member().user_current();
-            String no_telpp = new member().ambil_noTelp(usercurrent);
-            no_telpText.setText(no_telpp);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BookingForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BookingForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
-            String  sql = "SELECT NoBus, Asal, Tujuan, tanggal, status from busdatabase";
-            PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-            DefaultTableModel  tblModel = (DefaultTableModel)jTable1.getModel();
-            tblModel.setRowCount(0);
-            while(rs.next()){
-                
-                    String No = String.valueOf(rs.getInt("NoBus"));
-                    String Asal = rs.getString("asal");
-                    String Tujuan = rs.getString("tujuan");
-                    String Tanggal = String.valueOf(rs.getDate("tanggal"));
-                    String Status = rs.getString("status");
-                    String tbData[] = {No,Asal,Tujuan,Tanggal,Status};
-                    
-                    tblModel.addRow(tbData);
-            }
-                }
-
-        catch (SQLException | ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BookingForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         
     }
