@@ -201,9 +201,9 @@ public class RegisterForm extends javax.swing.JFrame {
                     LoginForm login = new LoginForm();
                         login.setVisible(true);
                         setVisible(false);
+                    con.close();
                 }
             }
-            
         
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);

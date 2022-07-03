@@ -145,17 +145,18 @@ public class LoginForm extends javax.swing.JFrame {
                pst.setString(2, password.getText());
                ResultSet rs = pst.executeQuery();
                if(rs.next()){
+                   new member().current(username.getText());
                    Mainmenu menu = new Mainmenu();
                    menu.setVisible(true);
                    setVisible(false);
+                   con.close();
                }
                else{
                     JOptionPane.showMessageDialog(null, "Username Atau Password Salah");
                     username.setText("");
                     password.setText("");
                }
-               
-               con.close();
+
                
            }
            catch(Exception e){

@@ -6,6 +6,8 @@
 
 package tubes.pbo;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ryan David Siahaan
@@ -17,8 +19,7 @@ public class Driver {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new member().tampil_login();
-        
+        new LoginForm().setVisible(true);
     }
 
 }

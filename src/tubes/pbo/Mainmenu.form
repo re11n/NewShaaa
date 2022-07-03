@@ -38,11 +38,6 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="82" max="32767" attributes="0"/>
-                  <Component id="TitleSelamatDatang" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-              </Group>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -54,12 +49,24 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="Bookingbutton" max="32767" attributes="0"/>
                               <Component id="PembayaranButton" max="32767" attributes="0"/>
-                              <Component id="StatusButton" max="32767" attributes="0"/>
                               <Component id="lihatSemuaBus" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="82" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="TitleSelamatDatang" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="keluar_akunButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -72,13 +79,13 @@
                   <Component id="LabelTitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="Bookingbutton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Component id="PembayaranButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="StatusButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="lihatSemuaBus" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="117" max="32767" attributes="0"/>
+                  <EmptySpace pref="72" max="32767" attributes="0"/>
+                  <Component id="keluar_akunButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -104,11 +111,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Pembayaran"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="StatusButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Status Tiket"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PembayaranButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="LabelTitle">
           <Properties>
@@ -121,6 +126,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lihatSemuaBusActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="keluar_akunButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Keluar Akun"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="keluar_akunButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

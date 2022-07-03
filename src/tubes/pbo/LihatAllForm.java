@@ -78,7 +78,15 @@ public class LihatAllForm extends javax.swing.JFrame {
             new String [] {
                 "No", "Asal", "Tujuan", "Tanggal", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Kembali");

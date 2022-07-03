@@ -35,9 +35,9 @@ public class Mainmenu extends javax.swing.JFrame {
         TitleSelamatDatang = new javax.swing.JLabel();
         Bookingbutton = new javax.swing.JButton();
         PembayaranButton = new javax.swing.JButton();
-        StatusButton = new javax.swing.JButton();
         LabelTitle = new javax.swing.JLabel();
         lihatSemuaBus = new javax.swing.JButton();
+        keluar_akunButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,8 +52,11 @@ public class Mainmenu extends javax.swing.JFrame {
         });
 
         PembayaranButton.setText("Pembayaran");
-
-        StatusButton.setText("Status Tiket");
+        PembayaranButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PembayaranButtonActionPerformed(evt);
+            }
+        });
 
         LabelTitle.setText("Silahkan Klik Tombol Dibawah ini");
 
@@ -64,14 +67,17 @@ public class Mainmenu extends javax.swing.JFrame {
             }
         });
 
+        keluar_akunButton.setText("Keluar Akun");
+        keluar_akunButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                keluar_akunButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
-                .addComponent(TitleSelamatDatang)
-                .addGap(70, 70, 70))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -82,9 +88,17 @@ public class Mainmenu extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(Bookingbutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(PembayaranButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(StatusButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lihatSemuaBus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(82, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(TitleSelamatDatang)
+                        .addGap(70, 70, 70))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(keluar_akunButton)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,13 +109,13 @@ public class Mainmenu extends javax.swing.JFrame {
                 .addComponent(LabelTitle)
                 .addGap(18, 18, 18)
                 .addComponent(Bookingbutton)
-                .addGap(18, 18, 18)
+                .addGap(42, 42, 42)
                 .addComponent(PembayaranButton)
-                .addGap(18, 18, 18)
-                .addComponent(StatusButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(39, 39, 39)
                 .addComponent(lihatSemuaBus)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addComponent(keluar_akunButton)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -122,15 +136,9 @@ public class Mainmenu extends javax.swing.JFrame {
     private void BookingbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookingbuttonActionPerformed
         // TODO add your handling code here:
             BookingForm b;
-        try {
             b = new BookingForm();
             b.setVisible(true);
             setVisible(false);
-        } catch (SQLException ex) {
-            Logger.getLogger(Mainmenu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Mainmenu.class.getName()).log(Level.SEVERE, null, ex);
-        }
             
         
     }//GEN-LAST:event_BookingbuttonActionPerformed
@@ -143,6 +151,22 @@ public class Mainmenu extends javax.swing.JFrame {
             setVisible(false);
         
     }//GEN-LAST:event_lihatSemuaBusActionPerformed
+
+    private void PembayaranButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PembayaranButtonActionPerformed
+        // TODO add your handling code here:
+            PembayaranForm b;
+            b = new PembayaranForm();
+            b.setVisible(true);
+            setVisible(false);
+    }//GEN-LAST:event_PembayaranButtonActionPerformed
+
+    private void keluar_akunButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keluar_akunButtonActionPerformed
+        // TODO add your handling code here:
+            LoginForm b;
+            b = new LoginForm();
+            b.setVisible(true);
+            setVisible(false);
+    }//GEN-LAST:event_keluar_akunButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,9 +207,9 @@ public class Mainmenu extends javax.swing.JFrame {
     private javax.swing.JButton Bookingbutton;
     private javax.swing.JLabel LabelTitle;
     private javax.swing.JButton PembayaranButton;
-    private javax.swing.JButton StatusButton;
     private javax.swing.JLabel TitleSelamatDatang;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton keluar_akunButton;
     private javax.swing.JButton lihatSemuaBus;
     // End of variables declaration//GEN-END:variables
 }
