@@ -9,10 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class member {
-    private String username;
-    private String password;
-    
+public class member extends user{
+
     public member(){
         
     }
@@ -20,26 +18,6 @@ public class member {
     {
         setUsername(username);
         setPassword(password);
-    }
-    
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
-    
-    public String getUsername()
-    {
-        return username;
-    }
-    
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
-    
-    public String getPassword()
-    {
-        return password;
     }
     
     public String user_current() throws ClassNotFoundException, SQLException{

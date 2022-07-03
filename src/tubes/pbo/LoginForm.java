@@ -136,20 +136,29 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
            // TODO add your handling code here:
-           try{
-               Class.forName("com.mysql.jdbc.Driver");
-               Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
-               String sql = "select * from logindatabase where username=? and password=?";
-               PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
-               pst.setString(1, username.getText());
-               pst.setString(2, password.getText());
-               ResultSet rs = pst.executeQuery();
-               if(rs.next()){
-                   new member().current(username.getText());
-                   Mainmenu menu = new Mainmenu();
-                   menu.setVisible(true);
-                   setVisible(false);
-                   con.close();
+            try{
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+                String sql = "select * from logindatabase where username=? and password=?";
+                PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
+                pst.setString(1, username.getText());
+                pst.setString(2, password.getText());
+                ResultSet rs = pst.executeQuery();
+                boolean isadm = new admin().is_admin(username.getText());
+                if(rs.next()){
+                    if(isadm){
+                        new member().current(username.getText());
+                        AdminForm menu = new AdminForm();
+                        menu.setVisible(true);
+                        setVisible(false);
+                        con.close();
+                    } else {
+                        new member().current(username.getText());
+                        Mainmenu menu = new Mainmenu();
+                        menu.setVisible(true);
+                        setVisible(false);
+                        con.close();
+                   }
                }
                else{
                     JOptionPane.showMessageDialog(null, "Username Atau Password Salah");

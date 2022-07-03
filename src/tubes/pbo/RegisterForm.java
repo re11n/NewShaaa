@@ -166,7 +166,7 @@ public class RegisterForm extends javax.swing.JFrame {
             // TODO add your handling code here:
             Class.forName("com.mysql.jdbc.Driver");
             Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
-            String sql =  "INSERT INTO `logindatabase`(`username`, `password`, `nama`, `no_telp`) VALUES (?,?,?,?)";
+            String sql =  "INSERT INTO `logindatabase`(`username`, `password`, `nama`, `no_telp`, `adm`) VALUES (?,?,?,?,?)";
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
          
             String username = usernameNew.getText();
@@ -181,7 +181,7 @@ public class RegisterForm extends javax.swing.JFrame {
             pst.setString(2, repass);
             pst.setString(3, nama);
             pst.setString(4, no_telp);
-            
+            pst.setString(5, "no");
             
             if(username.equals("")){
                 JOptionPane.showMessageDialog(null, "Username Tidak Boleh kosong");
