@@ -34,7 +34,7 @@ public class PembayaranForm extends javax.swing.JFrame {
             tiketDibayarBox.setModel(new DefaultComboBoxModel(tikett));
             Class.forName("com.mysql.jdbc.Driver");
             Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
-            String  sql = "SELECT id_tiket, nama, no_telp, premium, case when sudah_bayar like 'no' then 'Belum Bayar' else 'Sudah Bayar' end as `Status Pembayaran` from tiketdatabase where user = ?";
+            String  sql = "SELECT id_tiket, nama, no_telp, premium, bus_dari, bus_ke, tipe, case when sudah_bayar like 'no' then 'Belum Bayar' else 'Sudah Bayar' end as `Status Pembayaran` from tiketdatabase where user = ?";
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
             pst.setString(1, userr);
             ResultSet rs = pst.executeQuery();
@@ -46,7 +46,10 @@ public class PembayaranForm extends javax.swing.JFrame {
                 String nama = rs.getString("nama");
                 String no_telp = rs.getString("no_telp");
                 String premium = rs.getString("premium");
-                int harga = new tiket().harga_tiket(premium);
+                String bus_dari = rs.getString("bus_dari");
+                String bus_ke = rs.getString("bus_ke");
+                String tipe = rs.getString("tipe");
+                int harga = new tiket().harga_tiket(premium, bus_dari, bus_ke, tipe);
                 String harga1 = String.valueOf(harga);
                 String status_pembayaran = rs.getString("Status Pembayaran");
                 String tbData[] = {id_tiket,nama,no_telp,harga1 ,status_pembayaran};
@@ -83,6 +86,7 @@ public class PembayaranForm extends javax.swing.JFrame {
         no_TelpBox = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -157,6 +161,13 @@ public class PembayaranForm extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Hapus Tiket");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -187,6 +198,10 @@ public class PembayaranForm extends javax.swing.JFrame {
                 .addGap(316, 316, 316)
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +232,9 @@ public class PembayaranForm extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel3)
                                     .addComponent(no_TelpBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -251,33 +268,12 @@ public class PembayaranForm extends javax.swing.JFrame {
         }
         else {
             new member().bayar_tiket(idd);
+            setVisible(false);
+            PembayaranForm menu = new PembayaranForm();
+            menu.setVisible(true);
             JOptionPane.showMessageDialog(null, "Tiket berhasil dibayar");
-                    try {
-            String userr = new member().user_current();
-            String[] tikett = new tiket().current_tiket(userr);
-            tiketDibayarBox.setModel(new DefaultComboBoxModel(tikett));
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
-            String  sql = "SELECT id_tiket, nama, no_telp, case when sudah_bayar like 'no' then 'Belum Bayar' else 'Sudah Bayar' end as `Status Pembayaran` from tiketdatabase";
-            PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-            DefaultTableModel  tblModel = (DefaultTableModel)jTable1.getModel();
-            tblModel.setRowCount(0);
-            while(rs.next()){
-   
-                String id_tiket = rs.getString("id_tiket");
-                String nama = rs.getString("nama");
-                String no_telp = rs.getString("no_telp");
-                String status_pembayaran = rs.getString("Status Pembayaran");
-                String tbData[] = {id_tiket,nama,no_telp,status_pembayaran};
 
-                tblModel.addRow(tbData);
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PembayaranForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(PembayaranForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            
         }
         }  catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "ID Tiket tidak boleh kosong");
@@ -296,6 +292,13 @@ public class PembayaranForm extends javax.swing.JFrame {
                    menu.setVisible(true);
                    setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        HapusTiketForm menu = new HapusTiketForm();
+        menu.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -336,6 +339,7 @@ public class PembayaranForm extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

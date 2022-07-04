@@ -10,6 +10,8 @@ import com.mysql.jdbc.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -79,4 +81,36 @@ public class admin extends user{
         return tbData;
     }
     
+    
+    public void hapus_user(String id){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+            String sql1 = "delete from `logindatabase` where id= ?";
+            PreparedStatement pst1 = (PreparedStatement) con.prepareStatement(sql1);
+            pst1.setString(1, id);
+            pst1.executeUpdate();
+            con.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void hapus_bus(String nobus){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+            String sql1 = "delete from `busdatabase` where NoBus= ?";
+            PreparedStatement pst1 = (PreparedStatement) con.prepareStatement(sql1);
+            pst1.setString(1, nobus);
+            pst1.executeUpdate();
+            con.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

@@ -65,7 +65,32 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
         jLabel36.addMouseListener(this);
         jLabel37.addMouseListener(this);
         
-        
+        try {
+            // TODO add your handling code here:
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+            String sql = "select * from busdatabase";
+            PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
+            DefaultTableModel  tblModel = (DefaultTableModel)jTable1.getModel();
+            tblModel.setRowCount(0);
+            while(rs.next()){
+                String No = String.valueOf(rs.getInt("NoBus"));
+                String Asal = rs.getString("asal");
+                String Tujuan = rs.getString("tujuan");
+                String Tanggal = String.valueOf(rs.getDate("tanggal"));
+                String Status = rs.getString("status");
+                String tipe = rs.getString("tipe");
+                String harga = String.valueOf(new bus().harga_bus(Asal, Tujuan, tipe));
+                String tbData[] = {No,Asal,Tujuan,Tanggal,tipe, harga, Status};
+                
+                tblModel.addRow(tbData);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(LihatAllForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(LihatAllForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     int seatNo =0;
@@ -130,6 +155,10 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
         promoText = new javax.swing.JTextField();
         tanggalkeberangkatan = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel39 = new javax.swing.JLabel();
+        tipeBox = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,16 +170,16 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(199, 199, 199)
+                .addGap(523, 523, 523)
                 .addComponent(BookingTitile)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(BookingTitile)
-                .addContainerGap())
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         FormCustomer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, null));
@@ -455,19 +484,14 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
 
         tanggalkeberangkatan.setText("Tanggal Keberangkatan");
 
+        jLabel39.setText("Tipe");
+
+        tipeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Executive", "Royal Big Top", "Super Executive" }));
+
         javax.swing.GroupLayout FormCustomerLayout = new javax.swing.GroupLayout(FormCustomer);
         FormCustomer.setLayout(FormCustomerLayout);
         FormCustomerLayout.setHorizontalGroup(
             FormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FormCustomerLayout.createSequentialGroup()
-                .addGap(137, 137, 137)
-                .addGroup(FormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FormCustomerLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(FormCustomerLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(FormCustomerLayout.createSequentialGroup()
                 .addGroup(FormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(FormCustomerLayout.createSequentialGroup()
@@ -477,7 +501,8 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
                                 .addGroup(FormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel5)))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel39)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormCustomerLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(FormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,7 +514,8 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
                             .addComponent(CustomerName)
                             .addComponent(dariBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(keBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tipeBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(FormCustomerLayout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addGroup(FormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -508,6 +534,12 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
+            .addGroup(FormCustomerLayout.createSequentialGroup()
+                .addGap(137, 137, 137)
+                .addGroup(FormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         FormCustomerLayout.setVerticalGroup(
             FormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -532,15 +564,19 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
                 .addGroup(FormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(keBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(FormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel39)
+                    .addComponent(tipeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addGap(27, 27, 27)
                 .addGroup(FormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel38)
                     .addComponent(promoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
                 .addGroup(FormCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormCustomerLayout.createSequentialGroup()
                         .addComponent(jButton1)
@@ -552,6 +588,24 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
                         .addGap(72, 72, 72))))
         );
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "No", "Asal", "Tujuan", "Tanggal", "Tipe Bus", "Harga Tiket", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -559,17 +613,21 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(FormCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 17, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(FormCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
 
@@ -603,6 +661,7 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
         String promo = promoText.getText();
         SimpleDateFormat Dt = new SimpleDateFormat("yyyy-MM-dd");
         String tanggal = Dt.format(jDateChooser1.getDate());
+        String tipe = (String)tipeBox.getSelectedItem();
         
         if(nama.equals("")){
             JOptionPane.showMessageDialog(null, "Nama Tidak Boleh kosong");
@@ -613,7 +672,7 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
         }
         
         else {
-            new tiket().pesanTiket(nama, no_telp, dari, ke, promo, tanggal, kursi);
+            new tiket().pesanTiket(nama, no_telp, dari, ke, promo, tanggal, kursi, tipe);
         }
     }//GEN-LAST:event_buttonTambahActionPerformed
 
@@ -704,6 +763,7 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -712,10 +772,13 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> keBox;
     private javax.swing.JTextField no_telpText;
     private javax.swing.JTextField promoText;
     private javax.swing.JLabel tanggalkeberangkatan;
+    private javax.swing.JComboBox<String> tipeBox;
     // End of variables declaration//GEN-END:variables
 
     @Override

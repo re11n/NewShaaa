@@ -80,4 +80,20 @@ public class member extends user{
             Logger.getLogger(member.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void hapus_tiket(String idtiket){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+            String sql1 = "delete from `tiketdatabase` where id_tiket= ?";
+            PreparedStatement pst1 = (PreparedStatement) con.prepareStatement(sql1);
+            pst1.setString(1, idtiket);
+            pst1.executeUpdate();
+            con.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
