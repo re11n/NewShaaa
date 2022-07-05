@@ -39,7 +39,7 @@ public class DetailUserForm extends javax.swing.JFrame {
             
             Class.forName("com.mysql.jdbc.Driver");
             Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
-            String  sql = "SELECT id_tiket, nama, no_telp,bus_dari,bus_ke , premium, case when sudah_bayar like 'no' then 'Belum Bayar' else 'Sudah Bayar' end as `Status Pembayaran` from tiketdatabase where user = ?";
+            String  sql = "SELECT id_tiket, nama, no_telp,bus_dari,bus_ke , case when sudah_bayar like 'no' then 'Belum Bayar' else 'Sudah Bayar' end as `Status Pembayaran`, case when premium like 'no' then 'Non Premium' else 'Premium' end as `premium` from tiketdatabase where user = ?";
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
             pst.setString(1, userr);
             ResultSet rs = pst.executeQuery();
