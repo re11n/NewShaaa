@@ -13,7 +13,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -659,27 +661,35 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
     }//GEN-LAST:event_dariBoxActionPerformed
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
-        // TODO add your handling code here:
-        int kursi = seatNo;
-        String nama = CustomerName.getText();
-        String no_telp = no_telpText.getText();
-        String dari = (String)dariBox.getSelectedItem();
-        String ke = (String)keBox.getSelectedItem();
-        String promo = promoText.getText();
-        SimpleDateFormat Dt = new SimpleDateFormat("yyyy-MM-dd");
-        String tanggal = Dt.format(jDateChooser1.getDate());
-        String tipe = (String)tipeBox.getSelectedItem();
-        
-        if(nama.equals("")){
-            JOptionPane.showMessageDialog(null, "Nama Tidak Boleh kosong");
-        }else if(no_telp.equals("")){
-            JOptionPane.showMessageDialog(null, "Nomor Telepon Tidak Boleh kosong");
-        }else if(dari.equals(ke)){
-            JOptionPane.showMessageDialog(null, "Tujuan tidak boleh sama dengan Asal");
-        }
-        
-        else {
-            new tiket().pesanTiket(nama, no_telp, dari, ke, promo, tanggal, kursi, tipe);
+        try {
+            // TODO add your handling code here:
+            int kursi = seatNo;
+            String nama = CustomerName.getText();
+            String no_telp = no_telpText.getText();
+            String dari = (String)dariBox.getSelectedItem();
+            String ke = (String)keBox.getSelectedItem();
+            String promo = promoText.getText();
+            SimpleDateFormat Dt = new SimpleDateFormat("yyyy-MM-dd");
+            String tanggal = Dt.format(jDateChooser1.getDate());
+            String tipe = (String)tipeBox.getSelectedItem();
+            Date date1 = Dt.parse(tanggal);
+            Date date = new Date();
+            
+            if(nama.equals("")){
+                JOptionPane.showMessageDialog(null, "Nama Tidak Boleh kosong");
+            }else if(no_telp.equals("")){
+                JOptionPane.showMessageDialog(null, "Nomor Telepon Tidak Boleh kosong");
+            }else if(dari.equals(ke)){
+                JOptionPane.showMessageDialog(null, "Tujuan tidak boleh sama dengan Asal");
+            }else if(date1.before(date)){
+                JOptionPane.showMessageDialog(null, "Tanggal Invalid, silahkan pilih tanggal yang lain");
+            }
+            
+            else {
+                new tiket().pesanTiket(nama, no_telp, dari, ke, promo, tanggal, kursi, tipe);
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(BookingForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonTambahActionPerformed
 

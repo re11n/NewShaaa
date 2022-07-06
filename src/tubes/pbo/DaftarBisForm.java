@@ -29,7 +29,7 @@ public class DaftarBisForm extends javax.swing.JFrame {
             // TODO add your handling code here:
             Class.forName("com.mysql.jdbc.Driver");
             Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
-            String sql = "select * from busdatabase";
+            String sql = "select NoBus, asal, tujuan, tanggal, tipe, case when Tanggal > CURRENT_DATE() then 'Belum Berangkat' else 'Sudah Berangkat' end as `Status` from busdatabase";
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery(sql);
             DefaultTableModel  tblModel = (DefaultTableModel)jTable1.getModel();
