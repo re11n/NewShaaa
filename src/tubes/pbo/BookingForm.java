@@ -86,6 +86,13 @@ public class BookingForm extends javax.swing.JFrame implements MouseListener {
                 
                 tblModel.addRow(tbData);
             }
+            
+            String currentuser = new member().user_current();
+            String name = new member().ambil_nama(currentuser);
+            String notep = new member().ambil_noTelp(currentuser);
+            CustomerName.setText(name);
+            no_telpText.setText(notep);
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(LihatAllForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

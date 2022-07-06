@@ -96,4 +96,17 @@ public class member extends user{
             Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public String ambil_nama(String username) throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+        String  sql = "SELECT nama from logindatabase where username=?";
+        PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
+        pst.setString(1, username);
+        ResultSet rs = pst.executeQuery();
+        rs.next();
+        String user = rs.getString("nama");
+        con.close();
+        return user;
+    }
 }

@@ -109,5 +109,17 @@ public class bus {
         
     }
     
+    public boolean ada_destinasi(String asal, String ke) throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+        String  sql = "SELECT * from hargadatabase where  `asal_bus` = ? and `ke_bus` = ?";
+        PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
+        pst.setString(1, asal);
+        pst.setString(2, ke);
+        ResultSet rs = pst.executeQuery();
+        
+        return rs.next();
+    }
+    
     
 }

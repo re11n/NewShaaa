@@ -9,6 +9,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -184,14 +185,21 @@ public class TambahBusForm extends javax.swing.JFrame {
         SimpleDateFormat Dt = new SimpleDateFormat("yyyy-MM-dd");
         String tanggal = Dt.format(tanggalDate.getDate());
         String tipe = (String)tipeBox.getSelectedItem();
-        boolean ada_tipe = new tiket().ada_tipe(tipe, dari, ke);
+        boolean ada_tipe_harga = new tiket().ada_tipe_harga(tipe, dari, ke);
+        boolean ada_destinasi = new bus().ada_destinasi(dari, ke);
+        Date date1 = Dt.parse(tanggal);
+        Date date = new Date();
         
         if(nobus.equals("")){
             JOptionPane.showMessageDialog(null, "Nomor Bus Tidak Boleh kosong");
         }else if(dari.equals(ke)){
             JOptionPane.showMessageDialog(null, "Asal Bus tidak boleh sama dengan tujuan bus");
-        }else if(ada_tipe){
+        }else if(!ada_destinasi){
+            JOptionPane.showMessageDialog(null, "Destinasi tidak tersedia, silahkan ganti asal dan tujuan bus");
+        }else if(!ada_tipe_harga){
             JOptionPane.showMessageDialog(null, "Tipe bus tidak ada, silahkan pilih tipe bus lain");
+        }else if(date1.before(date)){
+            JOptionPane.showMessageDialog(null, "Tanggal Invalid, silahkan pilih tanggal yang lain");
         }
 
         else{
@@ -202,6 +210,8 @@ public class TambahBusForm extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TambahBusForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
+            Logger.getLogger(TambahBusForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
             Logger.getLogger(TambahBusForm.class.getName()).log(Level.SEVERE, null, ex);
         }
 

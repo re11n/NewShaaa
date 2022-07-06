@@ -194,4 +194,17 @@ public class tiket {
         
         return tbData;
     }
+    
+    public boolean ada_tipe_harga(String tipe, String asal, String ke) throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/newshantika", "root", "");
+        String  sql = "SELECT * from hargadatabase where `tipe` = ? and `asal_bus` = ? and `ke_bus` = ?";
+        PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
+        pst.setString(1, tipe);
+        pst.setString(2, asal);
+        pst.setString(3, ke);
+        ResultSet rs = pst.executeQuery();
+        
+        return rs.next();
+    }
 }
