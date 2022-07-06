@@ -261,6 +261,7 @@ public class PembayaranForm extends javax.swing.JFrame {
         try{
         String idd = tiketDibayarBox.getSelectedItem().toString();
         String no_telpp = no_TelpBox.getText();
+        
         if(idd.equals("")){
             JOptionPane.showMessageDialog(null, "ID Tiket tidak boleh kosong");
         }else if(no_telpp.equals("")){
